@@ -8,18 +8,20 @@ class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
 
-    const connection = CodePipelineSource.connection('bodokaiser/cdk-pipeline-invalid-inputs', 'master', {
-      connectionArn: 'arn:aws:codestar-connections:eu-central-1:873049347717:connection/5b68eecd-4f05-413f-9256-7781835efea5',
-    })
+    const connectionArn = 'arn:aws:codestar-connections:eu-central-1:873049347717:connection/5b68eecd-4f05-413f-9256-7781835efea5'
 
     const pipeline = new CodePipeline(this, 'Pipeline', {
       synth: new ShellStep('Synth', {
-        input: connection,
+        input: CodePipelineSource.connection('bodokaiser/cdk-pipeline-invalid-inputs', 'master', {
+          connectionArn,
+        }),
         commands: [
           'yarn install --frozen-lockfile', 'yarn run build', 'npx cdk synth'
         ],
         additionalInputs: {
-          some_additional_input: connection,
+          some_additional_input: CodePipelineSource.connection('bodokaiser/node-walve', 'master', {
+            connectionArn,
+          }),
         }
       })
     })
