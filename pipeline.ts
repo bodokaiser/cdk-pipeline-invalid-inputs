@@ -3,7 +3,7 @@ import { CodePipeline, CodePipelineSource, ShellStep } from '@aws-cdk/pipelines'
 
 import { Application } from './application';
 
-class PipelineStack extends Stack {
+export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
 
