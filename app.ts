@@ -14,9 +14,7 @@ class PipelineStack extends Stack {
           connectionArn: 'arn:aws:codestar-connections:eu-central-1:873049347717:connection/5b68eecd-4f05-413f-9256-7781835efea5',
         }),
         commands: [
-          'npm ci',
-          'npm run build',
-          'npx cdk synth',
+          'yarn install --frozen-lockfile', 'yarn run build', 'npx cdk synth'
         ],
       })
     })
