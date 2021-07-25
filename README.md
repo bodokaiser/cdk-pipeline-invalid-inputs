@@ -15,4 +15,4 @@ env CDK_NEW_BOOTSTRAP=1 npx cdk bootstrap \
     aws://<aws account id>/eu-central-1
 ```
 
-4. Deploy the Pipeline via `npx cdk deploy --profile <profile> </profile>PipelineStack`
+4. Deploy the Pipeline via `npx cdk deploy --profile <profile> PipelineStack`
