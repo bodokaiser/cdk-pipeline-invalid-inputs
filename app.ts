@@ -24,25 +24,28 @@ class PipelineStack extends Stack {
   }
 }
 
+class LambdaStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props)
+
+    new Function(this, 'Function', {
+      runtime: Runtime.NODEJS,
+      handler: 'index.handler',
+      code: Code.fromInline(`console.log("hello world")`),
+    })
+  }
+}
+
 class Application extends Stage {
   constructor(scope: Construct, id: string, props?: StageProps) {
     super(scope, id, props);
 
-    const fn = new Function(this, 'Function', {
-      runtime: Runtime.NODEJS,
-      handler: 'index.handler',
-      code: Code.fromInline('console.log("hello world")'),
-    })
+    new LambdaStack(this, 'Lambda')
   }
 }
 
 const app = new App()
 
-new PipelineStack(app, 'PipelineStack', {
-  env: {
-    account: '472296971567',
-    region: 'eu-central-1',
-  },
-})
+new PipelineStack(app, 'PipelineStack')
 
 app.synth()
